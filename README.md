@@ -151,7 +151,7 @@ dashboard ML/
 │   │   └── api.js             # Rotas da API JSON (/api)
 │   ├── scheduler.js           # Cron de sincronização (00:00 e 12:00)
 │   └── server.js              # Ponto de entrada (web + API + Swagger + scheduler)
-├── marketplace helper LP/     # Landing page comercial (site estático independente)
+├── landing-page/             # Landing page comercial (site estático independente)
 │   ├── index.html · styles.css · config.js · server.js · INICIAR-LP.BAT
 ├── .env                       # Segredos locais (NÃO versionado)
 ├── .env.example               # Modelo das variáveis de ambiente
@@ -385,7 +385,7 @@ hospedagem precisa manter o processo **sempre ligado** (ver seção 16).
 
 ## 12. Landing page
 
-A pasta `marketplace helper LP/` contém uma **página comercial estática** (HTML/CSS), servida por
+A pasta `landing-page/` contém uma **página comercial estática** (HTML/CSS), servida por
 um servidor Node **sem dependências** na porta **8080** (`INICIAR-LP.BAT`). Apresenta a solução,
 seus recursos, um comparativo "antes × depois", FAQ e um **botão flutuante de WhatsApp**
 (número configurável em `config.js`). Os botões *Entrar* e *Crie sua conta* apontam para o
@@ -549,7 +549,7 @@ Acesse **<http://localhost:3333>** (aplicação web) e **<http://localhost:3333/
 ### 15.7. (Opcional) Landing page
 
 ```bash
-cd "marketplace helper LP"
+cd landing-page
 npm start        # ou duplo clique em INICIAR-LP.BAT (Windows)
 ```
 
@@ -635,10 +635,21 @@ Se aparecer `Variáveis de ambiente obrigatórias em produção ausentes`, falta
 
 ### 16.7. Landing page
 
-A landing page é estática e pode ser publicada gratuitamente, separada do app, no **GitHub Pages**,
-**Netlify** ou **Vercel**, apontando para a pasta `marketplace helper LP/`. Antes, troque em
-`config.js` o `window.APP_URL` para o endereço do app publicado
-(ex.: `https://<nome>.up.railway.app`) — é ele que monta os botões de login/cadastro.
+Antes de publicar, troque em `landing-page/config.js` o `window.APP_URL` para o endereço do app
+publicado (ex.: `https://<nome>.up.railway.app`) — é ele que monta os botões de login/cadastro.
+
+**No Railway (mesmo projeto, segundo serviço):**
+
+1. No canvas do projeto: **+ Create → GitHub Repo** e selecione **o mesmo repositório**.
+2. No novo serviço, **Settings → Source → Root Directory**: `landing-page`. Assim o Railway usa o
+   `package.json` da pasta (`npm start` → `node server.js`, sem dependências).
+3. (Opcional) **Settings → Source → Watch Paths**: `/landing-page/**` — só redeploya a landing
+   quando arquivos dessa pasta mudarem.
+4. **Settings → Networking → Generate Domain**. Não é preciso volume nem variáveis: o servidor lê
+   a `PORT` injetada pelo Railway.
+
+**Alternativa gratuita:** por ser estática, também pode ir para **GitHub Pages**, **Netlify** ou
+**Vercel**, apontando para a pasta `landing-page/`.
 
 > **Backup:** o banco inteiro é o arquivo `/data/prod.db`. Para uma cópia de segurança, use os
 > *backups* de volume do Railway ou baixe o arquivo periodicamente.

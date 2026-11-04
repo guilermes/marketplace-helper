@@ -6,7 +6,8 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const PORT = Number(process.env.LP_PORT) || 8080;
+// PORT é injetada pela hospedagem (ex.: Railway); LP_PORT/8080 para uso local.
+const PORT = Number(process.env.PORT || process.env.LP_PORT) || 8080;
 
 const TYPES = {
   ".html": "text/html; charset=utf-8",
