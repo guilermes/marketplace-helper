@@ -2,7 +2,7 @@
 
 // URL base do sistema Marketplace Helper.
 // Local: http://localhost:3333 · Em produção: troque pela URL real do app.
-window.APP_URL = "http://localhost:3333";
+window.APP_URL = "http://marketplace-helper.up.railway.app/";
 
 // WhatsApp do botão flutuante.
 // Coloque o número com DDI + DDD + número, SÓ DÍGITOS. Ex Brasil: 5511999998888
